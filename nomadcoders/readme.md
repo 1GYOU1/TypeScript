@@ -1,4 +1,4 @@
-## TypeScript
+# TypeScript
 
 #### 타입스크립트로 블록체인 만들기
 
@@ -52,8 +52,109 @@ TypeScript는 Microsoft에서 개발한 오픈 소스 프로그래밍 언어로,
 
 <br>
 
----
+## Chapter 2 - OVERVIEW OF TYPESCRIPT
 
+변수 타입 명시
 
+```ts
+let a = "hello"// 명시하지 않아도 자동으로 추론해서 string타입이라고 인지
+let a : string = "hello"// 타입 명시
 
+let b = 8// 자동으로 추론해서 number형 인지
+let b : number = 8// 타입 명시
 
+let c = [1, 2, 3]// 자동 추론 number형 배열 인지
+let c = number[] = []// 배열 타입 명시 string boolean 등 사용 가능.
+
+let d : number[] = []// 배열 타입 명시. 아무것도 들어있지 않을 때 주로 사용.
+
+let e = true;// 자동 추론 boolean형 인지
+let e : boolean = true;// 타입 명시
+```
+
+object형 타입 명시
+
+```ts
+const playerGyou : {
+    name : string,
+    age? : number// ?는 age의 값이 number 또는 undefined
+} = {
+    name : "choco",
+}
+
+if(playerGyou.age && playerGyou.age < 10){
+// age의 값이 undefined일 수도 있기 때문에 존재의 유무를 조건에 넣어줘야 오류가 안남.
+}
+```
+여러개의 object 만들 때 Alias(별칭 타입)지정
+```ts
+type Age = number;
+type Name = string;// 이렇게 지정할 수 있으나 과하게 사용은 X
+type Player = {// 첫문자는 대문자로 선언 !
+    name : Name,
+    age? : Age
+}
+
+const gyou1 : Player = {
+    name : "gyou1"
+}
+const gyou2 : Player = {
+    name : "gyou2",
+    age : 28
+}
+```
+함수형 타입 명시
+```ts
+type Player = {
+    name : string,
+    age? : number
+}
+                    //인수의 타입 지정(argument)
+function playerMaker(name : string) : Player {//함수 return값의 타입 지정
+    return {
+        name
+    }
+}
+
+//화살표 함수 버전 문법 작성법
+const playerMaker = (name : string) : Player => ({name})
+
+const gyou1 = playerMaker("ggyou");
+gyou1.age = 28
+```
+readonly : 값 고정. 변경하지 못하게 하는 설정. (불변성)
+```ts
+const numbers : readonly number[] = [1,2,3,4]
+// numbers.push(1) readonly 속성 때문에 원본 값 변경 불가 !
+```
+Tuple : 배열 특정 위치에 특정 타입 지정.
+```ts
+const player : [string, number, boolean] = ["gyou", 28, true]
+```
+
+readonly + Tuple
+
+```ts
+const player : readonly [string, number, boolean] = ["gyou", 28, true]
+// player[0] = "hi" readonly 속성 때문에 원본 값 변경 불가 !
+```
+
+any : typescript로 부터 빠져나오고 싶을 때 사용. js로 바꿔줌. 사용하지 않는 것을 권장.
+```ts
+const a : any[] = [1, 2, 3, 4]
+const b : any = true
+
+a + b//해당 부분을 가능하게 해줌... 좋은 방식 X
+```
+
+void
+```ts
+```
+
+never
+```ts
+```
+
+unknown
+```ts
+```
