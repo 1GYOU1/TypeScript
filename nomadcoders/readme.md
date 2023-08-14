@@ -147,14 +147,39 @@ const b : any = true
 a + b//해당 부분을 가능하게 해줌... 좋은 방식 X
 ```
 
-void
+unknown : 변수 타입을 미리 알지 못 할 때 주로 사용. 어떤 작업을 하려면 이 변수의 타입을 먼저 확인해야 하는 방식. typescript가 타입 확인 작업을 강제로 시킴.
 ```ts
+let a : unknown;
+if(typeof a === "number){
+    let b = a + 1
+}
+if(typeof a === "string"){
+    let b = a.toUpperCase();
+}
+
 ```
 
-never
+void : 아무것도 return하지 않는 함수를 대상으로 사용.
 ```ts
+function hello(){//return 값이 없는 것을 자동으로 인식, void 안써줘도 됌.
+    console.log("x")
+}
 ```
 
-unknown
+never : 함수가 절대 return 하지 않을 때 쓰는 타입, 타입이 두가지 일 수도 있는 상황에 발생, 거의 사용 X.
 ```ts
+function hello() : never {
+    // return "xxx" 오류 발생
+    throw new Error("XXX")//return하지 않고 오류를 발생
+}
+
+function hello2(name:string | number){
+    if(typeof name === "string"){
+        name// name : string
+    }else if(typeof nems === "number"){
+        name// name : number
+    }else{
+        name// name : never 실행되면 안되는 코드,,
+    }
+}
 ```
