@@ -183,3 +183,84 @@ function hello2(name:string | number){
     }
 }
 ```
+
+<br>
+
+## Chapter 3 - FUNCTIONS
+
+### call signature
+
+```ts
+const add = (a:number, b:number) => a+b
+```
+상단과 같은 코드
+```ts
+type Add = (a:number, b:number) => number;//call signature
+
+const add:Add = (a, b) => a + b
+```
+1. 화살표 함수에서 {}를 생략하면 return이 생략된 것
+2. 즉 a + b 와 { return a+b } 는 같은 뜻
+3. {a+b}라고 하면 아무것도 리턴하지 않기 때문에 에러남
+
+### Overloading
+
+Function(=Method) Overloading은 직접 작성하기보다 외부 라이브러리에 자주 보이는 형태로, 하나의 함수가 복수의 Call Signature를 가질 때 발생한다.(매개변수가 다르며 이름이 동일한 함수)
+
+매개변수의 개수는 동일하지만, 타입이 다른 경우
+
+```ts
+type Add = {
+(a: number, b: number): number,
+(a: number, b: string): number
+}
+
+const add: Add = (a, b) => {
+if (typeof b === "string") return a;
+return a + b;
+}
+```
+Next.js의 라우터 push가 두 가지 방법으로 페이지를 이동한다고 할 때,
+패키지나 라이브러리는 아래와 같이 주로 Overloading으로 구성되어있다.
+```ts
+router.push("/home");
+
+router.push({
+path: "/home",
+state: 1
+});
+
+type Config = {
+path: string,
+state: number
+}
+
+type Push = {
+(config: Config): void,
+(config: string): void
+}
+
+const push: Push = (config) => {
+if (typeof config === "string") console.log(config);
+else console.log(config.path);
+}
+```
+
+매개변수의 개수는 다르지만, 타입은 동일한 경우
+
+```ts
+type Add2 = {
+(a: number, b: number): number,
+(a: number, b: number, c: number): number
+}
+
+const add2: Add2 = (a, b, c?: number) => {
+if (c) return a + b + c;
+return a + b;
+}
+
+add(1, 2)
+add(1, 2, 3)
+```
+
+### Polymorphism
