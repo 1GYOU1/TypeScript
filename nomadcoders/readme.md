@@ -264,3 +264,130 @@ add(1, 2, 3)
 ```
 
 ### Polymorphism
+
+poly : many, several, much, multi
+polyfon : 다각형
+morphos, morphic : form(형태), structure(구조)
+
+= 여러가지 다른 구조들
+
+
+call signature을 작성할 때, 들어올 확실한 타입을 모를때 사용. call signature을 생성해주는 도구
+
+generic 사용 전
+```ts
+type SuperPrint = {//들어올 모든 경우의 수만큼 타입을 넣기엔 너무 복잡...
+    (arr: number[]):void
+    (arr: boolean[]):void
+    (arr: string[]):void
+    (arr: (number|boolean[]):void
+}
+
+const superPrint: SuperPrint = (arr) => {
+    arr.forEach(i => console.log(i))
+}
+
+superPrint([1, 2, 3, 4])
+superPrint([true, false, true, true])
+superPrint(["a", "b", "c", "d"])
+// superPrint([1, 2, true, false, "hello"])
+```
+
+generic 사용 후
+
+- any는 any(모든 것)라서 사용 자제, generic 사용할 것 권장
+```ts
+type SuperPrint = {
+    <TypePlaceholder>(arr: TypePlaceholder[]):void // call signature 타입 자동 유추 
+}
+
+const superPrint: SuperPrint = (arr) => {
+    arr.forEach(i => console.log(i))
+}
+
+superPrint([1, 2, 3, 4])
+superPrint([true, false, true, true])
+superPrint(["a", "b", "c", "d"])
+superPrint([1, 2, true, false, "hello"])
+```
+```ts
+type SuperPrint = {
+    <T>(arr: T[]): T // call signature 타입 자동 유추 
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+const a = superPrint([1, 2, 3, 4])
+const b = superPrint([true, false, true, true])
+const c = superPrint(["a", "b", "c", "d"])
+const d = superPrint([1, 2, true, false, "hello"])
+//만약 any를 사용하게되면 d.toUpperCase()를 하면 에러가 나야하는데 (배열의 첫번째 요소를 리턴해주는데 숫자라서) any면 에러가 안남...
+```
+```ts
+type SuperPrint = {
+    //대문자 사용
+    <T,M>(arr: T[], b:M): T // call signature 타입 자동 유추 
+}
+
+const superPrint: SuperPrint = (arr) => arr[0]
+
+const a = superPrint([1, 2, 3, 4], "x")
+const b = superPrint([true, false, true, true], 1)
+const c = superPrint(["a", "b", "c", "d"], false)
+const d = superPrint([1, 2, true, false, "hello"], [])
+```
+
+### Conclusions
+
+generic 여러가지 사용법
+```ts
+function superPrint<T>(a: T[]){
+    return a[0]
+}
+
+const a = superPrint<number>([1, 2, 3, 4])//명시안해줘도 자동으로 들어와서 지워도 똑같음.
+const b = superPrint([true, false, true])
+const c = superPrint(["a", "b", "c"])
+const d = superPrint([1, 2, true, false, "hello"])
+```
+
+generic 타입 생성, 확장, 재사용
+```ts
+type Player<E> = {
+    name: string
+    extraInfo: E
+}
+
+type gyouExtra = {
+    favFood: string
+}
+type gyouPlayer = Player<gyouExtra>
+
+const gyou1: gyouPlayer = {
+    name : "1gyou1",
+    extraInfo: {
+        favFood: "tteokbokki"
+    }
+}
+const gyou2: Player<null> = {
+    name: "1gyou2",
+    extraInfo: null
+}
+```
+
+```ts
+type A = Array<number>
+
+let a:A = [1, 2, 3, 4]
+```
+
+```ts
+function printAllNumbers(arr: Array<number>){
+//숫자 배열이 들어온다 가정할 때 (arr: number[])를 다르게 쓰는 법
+}
+```
+
+React.js에서 generic 사용
+```ts
+useState<number>()
+```
