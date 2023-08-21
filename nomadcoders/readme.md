@@ -391,3 +391,80 @@ React.js에서 generic 사용
 ```ts
 useState<number>()
 ```
+
+<br>
+
+## Chapter 4 - CLASSES AND INTERFACES
+
+### Classes
+
+접근 가능한 위치
+
+- private : 선언한 클래스 내 ⭕, 선언한 클래스 내 ❌,　인스턴스 ❌
+- protected : 선언한 클래스 내 ⭕, 선언한 클래스 내 ⭕,　인스턴스 ❌
+- public　: 선언한 클래스 내 ⭕, 선언한 클래스 내 ⭕,　인스턴스 ⭕
+
+Ts ver.
+```ts
+class Player {
+    constructor(
+        private firstName: string,
+        private lastName: string,
+        public nickname: string
+    ) {}
+}
+const gyou = new Player("first", "last", "1gyou1");
+// gyou.firstName
+// private이기 때문에 에러남.
+```
+
+Js ver.
+```js
+class Player { 
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.nickname = nickname;
+    }
+}
+const gyou = new Player("first", "last", "1gyou1");
+gyou.firstName
+```
+
+추상클래스
+- 다른 클래스가 상속받을 수 있는 클래스.
+- 상속받을 수만 있고, 직접적으로 인스턴스를 만들지는 못함.
+```ts
+abstract class User {
+    constructor(
+        private firstName: string,
+        private lastName: string,
+        public nickname: string 
+    ) {}
+}
+class Player extends User {//Player가 User을 상속
+}
+/* 
+    const gyou = new User("first", "last", "1gyou1");
+    이렇게 사용 불가능. 에러.
+*/
+const gyou = new Player("first", "last", "1gyou1");
+```
+추상클래스 안의 abstract method(추상 메소드)
+```ts
+abstract class User {//추상클래스
+    constructor(
+        private firstName: string,
+        private lastName: string,
+        public nickname: string 
+    ) {}
+    private getFullName(){//추상메소드
+        return `${this.firstName} ${this.lastName}`
+    }
+}
+class Player extends User {//Player가 User을 상속
+}
+const gyou = new Player("first", "last", "1gyou1");
+// gyou.getFullName()
+// private이기 때문에 에러남.
+```
