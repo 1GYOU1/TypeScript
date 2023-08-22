@@ -468,3 +468,42 @@ const gyou = new Player("first", "last", "1gyou1");
 // gyou.getFullName()
 // private이기 때문에 에러남.
 ```
+
+미니 사전
+```ts
+type Words = {//property의 이름은 모르지만, 타입만 알 때 유용
+    [key: number]: string
+}
+
+class Dict{
+    private words: Workds//property 만들고
+    constructor(){
+        this.words = {}//초기화
+    }
+    add(word: Word){// word는 Word 클래스의 인스턴스 타입.
+        if(this.word[word.term] === undefined){
+            this.words[word.term] = word.def;
+        }
+    }
+    def(term:string){
+        return this.words[term]
+    }
+}
+
+class Word{
+    constructor{
+        public term: string,
+        public def: string
+    }{}
+}
+
+const kimchi = new Word("kimchi", "한국의 음식");
+const dict = new Dict()
+
+dict.add(kimchi)
+dict.def("kimchi")
+```
+
+<br>
+
+## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
