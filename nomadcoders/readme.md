@@ -501,9 +501,14 @@ const kimchi = new Word("kimchi", "한국의 음식");
 const dict = new Dict()
 
 dict.add(kimchi)
-dict.def("kimchi")
+dict.def("kimchi")//'한국의 음식'
 ```
 
+### Interfaces
+
+```ts
+
+```
 <br>
 
 ## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
