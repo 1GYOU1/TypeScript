@@ -504,7 +504,18 @@ dict.add(kimchi)
 dict.def("kimchi")//'한국의 음식'
 ```
 
+readonly
+- 다른 누군가가 데이터 덮어쓰는 걸 방지
+
+```ts
+
+```
+
 ### Interfaces
+
+Literal Types :
+- 집합 타입의 보다 구체적인 하위 타입
+- 오늘날 TypeScript에는 문자열과 숫자, 두 가지 리터럴 타입이 있는데 이를 사용하면 문자열이나 숫자에 정확한 값을 지정할 수 있음.
 
 ```ts
 
