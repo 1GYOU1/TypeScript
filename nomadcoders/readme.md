@@ -506,20 +506,147 @@ dict.def("kimchi")//'한국의 음식'
 
 readonly
 - 다른 누군가가 데이터 덮어쓰는 걸 방지
+- public(값을 보여줄 수 있지만)을 수정할 수 없도록 만들 수 있음.
+
+static
+- 자바스크립트로 출력
 
 ```ts
+type Words = {//property의 이름은 모르지만, 타입만 알 때 유용
+    [key: number]: string
+}
 
+class Dict{
+    private words: Workds//property 만들고
+    constructor(){
+        this.words = {}//초기화
+    }
+    add(word: Word){// word는 Word 클래스의 인스턴스 타입.
+        if(this.word[word.term] === undefined){
+            this.words[word.term] = word.def;
+        }
+    }
+    def(term:string){
+        return this.words[term]
+    }
+    static hello(){//자바스크립트로 출력
+        return "hello"
+    }
+}
+
+class Word{
+    constructor{
+        public readonly term: string,//readonly - 값은 보이지만 수정은 X
+        public readonly def: string
+    }{}
+}
+
+const kimchi = new Word("kimchi", "한국의 음식");
+
+kimchi.def = "xxx"//이런 방식으로 내용을 수정하려고 하면 오류. 작동 X
+Dict.hello()//static메소드 사용하여 자바스크립트로 작동 가능.
 ```
+<br>
 
 ### Interfaces
 
-Literal Types :
-- 집합 타입의 보다 구체적인 하위 타입
-- 오늘날 TypeScript에는 문자열과 숫자, 두 가지 리터럴 타입이 있는데 이를 사용하면 문자열이나 숫자에 정확한 값을 지정할 수 있음.
-
+타입을 사용하는 여러가지 방법 
 ```ts
+type Nickname = string
+type Health = number
+type Friends = Array<string>
 
+type Player = {// 타입스크립트에게 object의 모양을 알려줌.
+    nickname: string,
+    healthBar: number
+}
+const gyou1 : Player = {
+    nickname: "1gyou1",
+    healthBar: 10
+}
+
+type Food: string;
+const kimchi: Food = "delicious"
 ```
+
+타입을 지정된 옵션으로만 제한하기
+```ts
+type Team = "read" | "blue" | "yellow"
+type Health = 1 | 5 | 10
+
+/*
+    type -> interface라고 바꿔도 지장 X
+    object의 모양을 결정하는 방법
+    1. type -> 좀 더 활용할 수 있는 게 많음(오브젝트 모양 결정, 타입 alias를 만들 수 있음 등...)
+    2. interface -> 오로지 오브젝트의 모양을 타입스크립트에게 설명해 주기 위한 키워드. 클래스와 닮아있음.
+*/
+interface Player = {
+    nickname: string,
+    team: Team,
+    health: Health
+}
+
+const gyou1: Player = {
+    nickname: "ggyou",
+    team: "yellow",//"pink"로 쓰면 오류남. 특정값이 지정되어있기 때문.
+    health: 10
+}
+```
+
+interface User 만들기 (type 버전 하단 코드와 같음)
+```ts
+interface User{
+    name: string
+}
+
+// interface Player{
+//     name: string //쓰기 귀찮으면 상속받아 사용할 수 있음.
+// }
+
+interface Player extends User{
+}
+
+const gyou1: Player = {
+    name: "ggyou"
+}
+```
+tyoe User 만들기 (interface 버전 상단과 같음)
+```ts
+type User = {
+    name: string
+}
+
+type Player = User & {//&는 and를 의미
+
+}
+
+const gyou1: Player = {
+    name: "ggyou"
+}
+```
+
+interface의 특징 - property를 축적시킬 수 있음 (type은 불가함.)
+```ts
+interface User{
+    name: string
+}
+interface: User{
+    lastName: string
+}
+interface: User{
+    health: number
+}
+//각각 인터페이스를 만들기만하면, 타입스크립트가 알아서 하나로 합쳐줌.
+const gyou1: User = {
+    name:"1gyou1",
+    lastName: "1",
+    health: 10
+}
+```
+<br>
+
+### Interfaces part Two
+
 <br>
 
 ## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
