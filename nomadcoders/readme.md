@@ -647,6 +647,129 @@ const gyou1: User = {
 
 ### Interfaces part Two
 
+추상클래스와 인터페이스의 차이
+
+1. 추상클래스(abstract class) ver.
+- 추상클래스는 인스턴스 생성 허용 X (new User() ~~ 만들 수 없음.)
+- 자바스크립트에서는 추상클래스(abstract)의 개념이 없기 때문에, 일반 클래스로 바뀌어서 인식됌.
+- 다른 클래스들이 정해진 양식. 즉, 정해진 property와 메소드를 갖도록 해주는 양식이 정해져있는 형태를 만들기 위해 추상클래스를 사용함. 
+```ts
+abstract class User{
+    constructor(
+        protected firstName: string,
+        protected lastName: string
+    ){}
+    //무엇을 구현해야하는지 !
+    abstract sayHi(name: string): string
+    abstract fullName(): string
+}
+
+class Player extends User{
+    fullNmae(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    sayHi(name: string){
+        return `Hello ${name}. My name is ${this.fullName()}`
+    }
+}
+```
+2. 인터페이스(interface) ver.
+- 인터페이스는 컴파일하면 JS로 바뀌지 않고 사라짐.
+- 인터페이스를 상속할 때는 property를 private로 만들지 못함. public만 가능.
+- 인터페이스도 타입으로 지정할 수 있음.
+
+클래스가 아니지만 클래스의 모양을 특정할 수 있게 해주는 방법
+```ts
+interface User{
+    firstName: string,
+    lastName: string,
+    sayHi(name: string):string
+    fullName(): string
+}
+interface Human{// 추가된 부분
+    health: number
+}
+class Player implements User{
+    constructor(
+        public firstName: string,
+        public lastName: string,
+        public health: number
+    ){}
+    fullName(){
+        return `${this.firstName} ${this.lastName}`
+    }
+    sayhi(name: string){
+         return `Hello ${name}. My name is ${this.fullName()}`
+    }
+}
+
+//인터페이스 타입 사용해보기
+const makeUser(user: User): USer{
+    new User{
+        firstName: "gyou1",
+        lastName: "1",
+        fullName: () => "XX",
+        sayHi: (name) => "string"
+    }
+}
+```
+
+### 정리
+
+- 공식문서에 따르면 대부분의 경우에는 타입과 인터페이스가 매우 유사함.
+- 인터페이스의 대부분의 기능은 타입에도 있다고 함.
+- 타입스크립트에게 오브젝트의 모양을 설명한다는 같은 목적을 이루고 있음.
+
+가장 큰 차이점
+- 상속 
+    - 인터페이스 extends로 상속
+    - 타입은 연산자로 상속
+- 기존에 존재하는 인터페이스에 새로운 필드 추가하는 방법
+    - 인터페이스 : 같은 인터페이스 여러번 작성 가능
+    - 타입 : 같은 타입 여러번 작성 불가능
+    - 타입은 새 property를 추가하기 위해 다시 선언될 수 없지만 인터페이스는 항상 상속이 가능.
+
+```ts
+type PlayerA = {
+    name: string
+}
+type PlayerAA = PlayerA & {
+    lastName: string
+}
+const playerA: PlayerAA ={
+    name: "gyou1",
+    lastName: "1"
+}
+/////
+interface PlayerB {
+    name: string
+}
+interface PlayerB{
+    lastName: string
+}
+interface PlayerB{
+    health: number
+}
+interface playerB: PlayerB = {
+    name: "gyou1",
+    lastName: "1",
+    health: number
+}
+```
+```ts
+type PlayerA= {
+    firstNmae: string
+}
+interface PlayerB{
+    firstName: string
+}
+class User implements PlayerB{
+    constructor(
+        public firstName: string
+    ){}
+}
+```
+
 <br>
 
 ## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
