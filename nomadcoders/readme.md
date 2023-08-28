@@ -714,7 +714,7 @@ const makeUser(user: User): USer{
 }
 ```
 
-### 정리
+### interface 정리
 
 - 공식문서에 따르면 대부분의 경우에는 타입과 인터페이스가 매우 유사함.
 - 인터페이스의 대부분의 기능은 타입에도 있다고 함.
@@ -770,6 +770,42 @@ class User implements PlayerB{
 }
 ```
 
+### Polymorphism
+
+```ts
+interface Mystorage<T>{
+    [key:string] : T
+}
+
+class LoclaStorage<T>{
+    private storage: Mystorage<T> = {}
+    set(key:string, value:T){
+        this.storage[key] = value;
+    }
+    remove(key:string){
+        delete this.storage[key]
+    }
+    get(key:string):T{
+        return this.storage[key]
+    }
+    clear(){
+        this.storage = {}
+    }
+}
+
+const stringStorage = new LocalStorage<string>()
+stringStorage.get("kkk")
+stringStorage.set("hello", "how are you")
+
+const booleanStorage = new Localstorage<boolean>();
+booleanStorage.get("xxx")
+booleanStorage.set("xxx", true)
+
+```
+
 <br>
 
 ## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
+
+타입스크립트 프로젝트 생성하기
+
