@@ -812,6 +812,8 @@ booleanStorage.set("xxx", true)
 ### #5.1 Targets
 타입스크립트 프로젝트 생성
 
+[파일 구성 참고](https://github.com/1GYOU1/TypeScript/tree/main/nomadcoders/5.1_Targets)
+
 ① json 생성
 >$ npm init -y
 
@@ -907,3 +909,80 @@ var Block = /** @class */ (function () {
     return Block;
 }());
 ```
+
+### #5.2 Lib Configuration
+
+**lib** 
+- 런타임 환경 설정
+- API와 타입을 알고있어서 자동완성 기능으로 마우스 올리면 미리 볼 수 있음.
+- 예시 -> localStorage.getItem에 마우스를 올렸을 경우 localStorage.getItem(key:string): string
+
+tsconfig.json
+```json
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES6",
+        "lib": ["ES6", "DOM"]//타입스크립트 코드가 어디서 동작할 것인지 정의
+    }
+}
+```
+
+### #5.3 Declaration Files
+**d.ts** 파일
+- API 정의 파일
+
+① strict 모드
+
+프로그램 정확성을 더 강력하게 보장하는 광범위한 타입 검사 동작을 가능하게 함.
+
+tsconfig.ts
+```json
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES6",
+        "lib": ["ES6", "DOM"],
+        "strict": true//-> 엄격한 타입 검사 옵션을 활성화
+    }
+}
+```
+
+② /src/myPackage.js 모듈 파일 생성
+```js
+export function init(config){
+    return true;
+}
+export function exit(code){
+    return code + 1;
+}
+```
+
+③ index2.ts 생성
+
+정의되지 않은 파일이라 에러 발생.
+```ts
+import { init, exit } from "myPackage";
+
+init({
+    url:"true"
+})
+
+exit(1)
+```
+
+④ myPackage.d.ts 정의 파일 생성.
+```ts
+interface Config{
+    url: string;
+}
+declare module "myPackage"{
+    function init(config: Config): boolean;
+    function exit(code: number): number
+}
+```
+
+### #5.4 JSDoc
+

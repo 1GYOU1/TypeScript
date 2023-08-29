@@ -1,10 +1,10 @@
-var hihi = function () { return "hi"; };
-var Block = /** @class */ (function () {
-    function Block(data) {
+"use strict";
+const hihi = () => "hi";
+class Block {
+    constructor(data) {
         this.data = data;
     }
-    Block.hello = function () {
+    static hello() {
         return "hi";
-    };
-    return Block;
-}());
+    }
+}
