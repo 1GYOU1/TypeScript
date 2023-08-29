@@ -807,5 +807,103 @@ booleanStorage.set("xxx", true)
 
 ## Chapter 5 - CTYPESCRIPT BLOCKCHAIN
 
-타입스크립트 프로젝트 생성하기
+블록체인의 PoC(개념증명)를 객체 지향 프로그래밍을 활용하는 타입스크립트
 
+### #5.1 Targets
+타입스크립트 프로젝트 생성
+
+① json 생성
+>$ npm init -y
+
+package.json
+```json
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",//-> 지우기
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"//-> 지우기
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+```
+
+② devDependencies 설치
+>$ npm install -D typescript
+
+```json
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {// -> 이 부분이 새로 생김
+    "typescript": "^5.2.2"
+  }
+}
+```
+
+③ src/index.ts - src 폴더에 index.ts 파일 생성. 해당 파일에 타입스크립트로 작업
+```ts
+const hihi = () => "hi";
+
+class Block{
+    constructor(private data: string){}
+    static hello(){
+        return "hi";
+    }
+}
+```
+
+④ tsconfig.json 자동완성기능 제공 파일 생성
+```json
+{
+    "include": ["src"],//해당 배열에 자바스크립트로 컴파일하고 싶은 모든 디렉터리 작성.
+    "compilerOptions": {
+        "outDir": "build",//자바스크립트 파일이 생성될 디렉터리 지정
+        "target": "ES5"//자바스크립트 버전 설정
+    }
+}
+```
+⑤ 컴파일 명령어 추가
+
+package.json
+```json
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc"//-> 해당 부분 추가 작성
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
+```
+
+⑥ 새로 컴파일 해야할 때 마다 아래 명령어 입력.
+>$ npm run build
+
+/build/index.js 파일이 생성됨 -> src/index.ts 해당 파일이 자바스크립트로 컴파일된 결과물
+```js
+var hihi = function () { return "hi"; };
+var Block = /** @class */ (function () {
+    function Block(data) {
+        this.data = data;
+    }
+    Block.hello = function () {
+        return "hi";
+    };
+    return Block;
+}());
+```
