@@ -814,7 +814,7 @@ booleanStorage.set("xxx", true)
 ### #5.1 Targets
 타입스크립트 프로젝트 생성
 
-[파일 구성 참고](https://github.com/1GYOU1/TypeScript/tree/main/nomadcoders/5.1_Targets)
+[파일 미리보기](https://github.com/1GYOU1/TypeScript/tree/main/nomadcoders/5.1-5.3)
 
 ① json 생성
 >$ npm init -y
@@ -987,6 +987,8 @@ declare module "myPackage"{
 ```
 
 ### #5.4 JSDoc
+
+[파일 미리보기](https://github.com/1GYOU1/TypeScript/tree/main/nomadcoders/5.4)
 
 - 이미 작성되어있는 코드가 많을때, 주석(코멘트)영역에 작성하는 타입스크립트 보호장치 문법
 - 자바스크립트 파일에 사용 가능.
