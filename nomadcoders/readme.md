@@ -469,6 +469,8 @@ const gyou = new Player("first", "last", "1gyou1");
 // private이기 때문에 에러남.
 ```
 
+### Recap
+
 미니 사전
 ```ts
 type Words = {//property의 이름은 모르지만, 타입만 알 때 유용
@@ -985,4 +987,48 @@ declare module "myPackage"{
 ```
 
 ### #5.4 JSDoc
+
+- 이미 작성되어있는 코드가 많을때, 주석(코멘트)영역에 작성하는 타입스크립트 보호장치 문법
+- 자바스크립트 파일에 사용 가능.
+- 함수 바로 위에 작성
+
+① tsconfig.json 파일에 옵션 추가
+```json
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES6",
+        "lib": ["ES6", "DOM"],
+        "strict": true,
+        "allowJs": true //->옵션 추가
+    }
+}
+```
+
+② /src/myPackage.js 주석 안에 작성
+```js
+// @ts-check
+/**
+ * Initializes the project
+ * @param {object} config
+ * @param {boolean} config.debug
+ * @param {string} config.url 
+ * @returns {boolean}
+ */
+export function init(config){
+    return true;
+}
+
+/**
+ * Exits the program
+ * @param {number} code 
+ * @returns 
+ */
+export function exit(code){
+    return code + 1;
+}
+```
+
+③ src/index.ts 정상 적용되었는지 마우스 올려서 확인해보기.
 
