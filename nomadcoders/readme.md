@@ -1043,3 +1043,48 @@ export function exit(code){
 - 해시 : 일방향 함수.
 - 나의 데이터 + 이전 블록의 해시 = 나만의 해시
 - 참고 영상 : https://youtu.be/Ca7Meu4z-F4?si=sFEv_vqV5zF5yn39
+
+개발환경 세팅
+
+① ts-node 설치
+- 주로 개발 환경에서 사용.
+- 빌드 없이 빠르게 새로고침 하고 싶을 때 사용.
+- ts-node가 컴파일할 필요없이 타입스크립트 코드를 대신 실행해줌.
+>$ npm i -D ts-node
+
+② nodemon 설치
+- nodemon을 설치하면 자동으로 커맨드를 재실행해줌.
+- 일일히 서버를 재시작할 필요가 없음.
+>$ npm i nodemon
+
+package.json
+```json
+{
+  "name": "typescript",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon --exec ts-node src/index.ts",//-> 추가
+    "start": "node build/index.js"//-> 추가
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
+```
+
+③ npm run dev 실행, 프로젝트 시작. (저장과 동시에 자동으로 컴파일 됌.)
+>$ npm run dev
+
+---
+
+<br>
+
+index.ts
+```ts
+
+```
