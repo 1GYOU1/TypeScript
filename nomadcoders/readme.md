@@ -1034,6 +1034,8 @@ export function exit(code){
 
 ③ src/index.ts 정상 적용되었는지 마우스 올려서 확인해보기.
 
+---
+
 ### #5.5 Blocks
 블록체인 구현
 - 가상화폐의 기본적인 기능 몇 개만 구현하여 가상화폐가 어떻게 작동하는 지 알아보는 코스
@@ -1082,9 +1084,35 @@ package.json
 
 ---
 
+### #5.6 DefinitelyTyped
+
+tsconfig.json
+```json
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES6",
+        "lib": ["ES6"],
+        "strict": true,
+        // "allowJs": true, 자바스크립트 타입스크립트 같이 사용
+        "esModuleInterop": true,// 추가
+        "module": "CommonJS"// 추가
+    }
+}
+```
+
+타입스크립트로 만들어지지 않은 패키지를 받았는데, 타입 정의가 하나도 없을 때
+
+다른 사람이 만들어 놓은 패키지 설치해서 해결
+
 <br>
 
-index.ts
-```ts
+node.js를 위한 타입을 설치
+>$ npm i -D @types/node
 
-```
+ex) 만약 axon 타입을 설치하고 싶다면, 
+- axon을 설치하고,
+>$ npm i axon
+- 패키지 설치 (npm 패키지 하고 같은 이름)
+>$ npm i -D @types/axon

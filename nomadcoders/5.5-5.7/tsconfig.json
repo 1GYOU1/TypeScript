@@ -1,0 +1,12 @@
+{
+    "include": ["src"],
+    "compilerOptions": {
+        "outDir": "build",
+        "target": "ES6",
+        "lib": ["ES6", "DOM"],
+        "strict": true,
+        // "allowJs": true, 자바스크립트 타입스크립트 같이 사용
+        "esModuleInterop": true,
+        "module": "CommonJS"
+    }
+}
